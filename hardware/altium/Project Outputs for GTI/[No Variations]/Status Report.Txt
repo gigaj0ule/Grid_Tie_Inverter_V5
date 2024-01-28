@@ -1,0 +1,25 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of PCB Document [GTI_V5.PcbDoc]
+   Generated File[GTI_V5.GTO]
+   Generated File[GTI_V5.GTP]
+   Generated File[GTI_V5.GTS]
+   Generated File[GTI_V5.GTL]
+   Generated File[GTI_V5.G1]
+   Generated File[GTI_V5.G2]
+   Generated File[GTI_V5.GBL]
+   Generated File[GTI_V5.GBS]
+   Generated File[GTI_V5.GBP]
+   Generated File[GTI_V5.GBO]
+   Generated File[GTI_V5.GKO]
+   Generated File[GTI_V5.GPT]
+   Generated File[GTI_V5.GPB]
+   Generated File[GTI_V5.RUL]
+   Generated File[GTI_V5.EXTREP]
+   Generated File[GTI_V5.REP]
+
+
+Files Generated   : 16
+Documents Printed : 0
+
+Finished Output Generation At 8:06:50 PM On 1/24/2024
