@@ -518,7 +518,7 @@ void Controller()  {
   PIDCompute(&I_OUT_PID);
 
   // -------------- Iterate our Resonant Controllers:
-  float Ui_50 = pr_calc(&PR_50, I_OUT_PID.setpoint, I_grid, 2 * 3.1415926 * 50.0);
+  float Ui_50  = pr_calc(&PR_50, I_OUT_PID.setpoint, I_grid, 2 * 3.1415926 * 50.0);
   float Ui_150 = pr_calc(&PR_150, I_OUT_PID.setpoint, I_grid, 2 * 3.1415926 * 150.0);
   float Ui_250 = pr_calc(&PR_250, I_OUT_PID.setpoint, I_grid, 2 * 3.1415926 * 250.0);
   float Ui_350 = pr_calc(&PR_350, I_OUT_PID.setpoint, I_grid, 2 * 3.1415926 * 350.0);
