@@ -87,25 +87,36 @@ const float Cos_LookupF[65] =
 // Global Structures
 
 // PID Controllers
-PIDControl                    PLL_PID, I_OUT_PID, P_OUT_PID;
+PIDControl          PLL_PID;
+PIDControl          I_OUT_PID; 
+PIDControl          P_OUT_PID;
 
 // Resonant controllers
-PR_t               PR_50, PR_150, PR_250, PR_350, PR_450, PR_550;
+PR_t                PR_50;
+PR_t                PR_150; 
+PR_t                PR_250;
+PR_t                PR_350;
+PR_t                PR_450;
+PR_t                PR_550;
 
 // DFSDM Peripherals
-DFSDM_Filter_AwdParamTypeDef  awdParamFilter0, awdParamFilter1;
+DFSDM_Filter_AwdParamTypeDef  awdParamFilter0;
+DFSDM_Filter_AwdParamTypeDef  awdParamFilter1;
 
 // -----------------------------------------------------------------
 // Necessary Global variables (since R/W occurs within ISRs):
 
 // These variables are updated automatically by the DFSDM and DMA peripherals
-int32_t       I_grid_DMA, V_grid_DMA, I_cap_DMA, V_bus_DMA;
+int32_t             I_grid_DMA;
+int32_t             V_grid_DMA;
+int32_t             I_cap_DMA;
+int32_t             V_bus_DMA;
 
 // Half-bridge Enabled?
-volatile uint8_t  HB_Enabled_Flag = false;
+volatile uint8_t    HB_Enabled_Flag = false;
 
 // Keeps track of whether the grid is safe to connect to
-volatile int16_t   Grid_Good_Bad_Cnt = GRID_UNACCEPTABLE;
+volatile int16_t    Grid_Good_Bad_Cnt = GRID_UNACCEPTABLE;
 
 /* USER CODE END PV */
 
