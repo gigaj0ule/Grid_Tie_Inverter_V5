@@ -5,15 +5,19 @@ CMSIS_CORE_DIR=CMSIS/Core
 CMSIS_DEVICE_DIR=cmsis_device_l4
 HAL_DIR=stm32l4xx_hal_driver
 
-INVERTER_SRC_DIR=STM32CubeIDE_Code/Core/Src/
+INVERTER_SRC_DIR=src/Core/Src/
+ARCH_FLAGS=-march=armv7e-m -mthumb \
+	-mfloat-abi=hard \
+	-mfpu=fpv4-sp-d16 \
+
 CFLAGS += -DSTM32L475xx \
-	-mcpu=cortex-m3 -mthumb \
-	-ISTM32CubeIDE_Code/Core/Inc/ \
+	$(ARCH_FLAGS) \
+	-Isrc/Core/Inc/ \
 	-I$(HAL_DIR)/Inc \
 	-I$(CMSIS_DEVICE_DIR)/Include/ \
 	-I$(CMSIS_CORE_DIR)/Include/
 
-LDFLAGS = -T./STM32CubeIDE_Code/STM32L475RCTX_FLASH.ld
+LDFLAGS = $(ARCH_FLAGS) -Tsrc/STM32L475RCTX_FLASH.ld
 
 inverter_SRCS = $(addprefix $(INVERTER_SRC_DIR)/, \
        dac.c \
@@ -29,7 +33,7 @@ inverter_SRCS = $(addprefix $(INVERTER_SRC_DIR)/, \
        sysmem.c \
        system_stm32l4xx.c \
        tim.c \
-) STM32CubeIDE_Code/Core/Startup/startup_stm32l475rctx.s
+) src/Core/Startup/startup_stm32l475rctx.s
 
 inverter_C_SRCS = $(filter %.c, $(inverter_SRCS))
 inverter_ASM_SRCS = $(filter %.s, $(inverter_SRCS))
@@ -152,4 +156,4 @@ inverter.elf: $(inverter_OBJS) $(hal_OBJS)
 	$(CC) $(LDFLAGS) $(inverter_OBJS) $(hal_OBJS) -o $@
 
 clean:
-	rm -f $(inverter_OBJS) $(hal_OBJS)
+	rm -f $(inverter_OBJS) $(hal_OBJS) inverter.elf
