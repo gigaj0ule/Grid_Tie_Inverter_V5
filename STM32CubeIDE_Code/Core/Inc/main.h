@@ -136,10 +136,15 @@ void Error_Handler(void);
 //##############################################
 // Safe Operating Area
 
-#define    RMS_LOWER_LIMIT      50000       // These values are for the grid checks. We disconnect if our metrics are out of these ranges (SI Units)
+// These values are for the grid checks. 
+// We disconnect if our metrics are out of these ranges (SI Units)
+
+#define    RMS_LOWER_LIMIT      50000       // Volts squared!
 #define    RMS_UPPER_LIMIT      70000       // Volts squared!
 #define    FREQ_DEV_LIMIT       0.5f
+
 #define    V_BUS_MINIMUM        360.0f
+#define    V_BUS_NOMINAL        370.0f
 #define    V_BUS_MAXIMUM        425.0f
 
 #define    ENABLE_JOINING_GRID  true

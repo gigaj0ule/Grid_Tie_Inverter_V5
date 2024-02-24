@@ -288,7 +288,7 @@ void SystemClock_Config(void)
   
   RCC_ClkInitStruct.ClockType       = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                                       |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-                                      
+
   RCC_ClkInitStruct.SYSCLKSource    = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider   = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider  = RCC_HCLK_DIV1;
@@ -477,7 +477,7 @@ void Grid_Checks()  {
 
   // Here we adjust our output current to keep our bus voltage 
   // at 370V using a PI controller
-  P_OUT_PID.setpoint  = 370.0f;
+  P_OUT_PID.setpoint  = V_BUS_NOMINAL;
   P_OUT_PID.input     = V_bus;
   PIDCompute(&P_OUT_PID);
 }
