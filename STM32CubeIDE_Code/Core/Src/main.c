@@ -179,7 +179,8 @@ int main(void)
   // -------------------------------Initializations-----------------------------------------
   // #######################################################################################
 
-  // Initialise DAC for Debugging, ensure the relays are closed and ensure our H-Bridge driver is disabled
+  // Initialise DAC for Debugging, ensure the relays are closed 
+  // and ensure our H-Bridge driver is disabled
   HAL_GPIO_WritePin(GPIOA, Driver_Disable_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOA, Relay_Pin, GPIO_PIN_SET);
   HAL_DAC_Start(&hdac1, DAC_CHANNEL_2);
@@ -201,7 +202,8 @@ int main(void)
   HAL_DFSDM_FilterRegularStart_DMA(&hdfsdm1_filter2, &V_grid_DMA, 1);
   HAL_DFSDM_FilterRegularStart_DMA(&hdfsdm1_filter3, &I_cap_DMA, 1);
 
-  // Enable the interrupts by the analogue watchdog of the DFSDM peripheral (These are vitally important)
+  // Enable the interrupts by the analogue watchdog of the DFSDM peripheral 
+  // (These are vitally important)
   awdParamFilter0.DataSource      = DFSDM_FILTER_AWD_CHANNEL_DATA;
   awdParamFilter0.Channel         = DFSDM_CHANNEL_0;
   awdParamFilter0.HighBreakSignal = DFSDM_NO_BREAK_SIGNAL;
@@ -236,7 +238,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    /* All code is handled by ISRs. Simply output to DAC for debugging */
+    // All code is handled by ISRs.
+    // Simply output to DAC for debugging
     float I_grid = ((float)I_grid_DMA) * I_GRID_SENSOR_K;
 
     // This results in 3 A/V on our scope allowing for +/- 5A.
@@ -327,7 +330,8 @@ void HB_Disable() {
 
 void HB_Enable() {
 
-  // Ensure we never proceed without ensuring our over current and voltage protection is enabled
+  // Ensure we never proceed without ensuring our over current 
+  // and voltage protection is enabled
   if((hdfsdm1_filter0.Instance->FLTCR2 & DFSDM_FLTCR2_AWDIE) == 0)  {
     Grid_Good_Bad_Cnt = GRID_UNACCEPTABLE;
     HB_Enabled_Flag = false;
@@ -340,7 +344,8 @@ void HB_Enable() {
     return;
   }
 
-  // Start our PWM driver which uses Timer1 to power our H-bridge. Both channels start with Duty = 0
+  // Start our PWM driver which uses Timer1 to power our H-bridge. 
+  // Both channels start with Duty = 0
   htim1.Instance->CCR1 = 0;
   htim1.Instance->CCR2 = 0;
 
@@ -358,7 +363,8 @@ void HB_Enable() {
 
 float Integral(int32_t datum)  {
 
-  // Keep a running summation of the last INTEGRAL_SIZE values passed into this function.
+  // Keep a running summation of the last INTEGRAL_SIZE values 
+  // passed into this function.
   static int32_t     Buffer[INTEGRAL_SIZE];
   static int16_t    Index = 0;
   static int32_t    Sum = 0;
@@ -436,7 +442,8 @@ void Grid_Checks()  {
     }
   }
 
-  // If grid checks are looking good and we're not yet grid tied then request to join
+  // If grid checks are looking good and we're not yet 
+  // grid tied then request to join
   if(HB_Enabled_Flag == false) {
 
     if(Grid_Good_Bad_Cnt == GRID_OK) {
