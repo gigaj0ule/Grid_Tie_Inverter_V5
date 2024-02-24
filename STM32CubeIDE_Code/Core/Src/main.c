@@ -498,8 +498,8 @@ void Controller()  {
   // Interpolate our LO steps to get a more accurate LO sample:
 
   // Take recordings so they are less likely to change during the calculations
-  uint32_t Timer4_CNT = TIM4->CNT;                            
-  uint8_t Lookup_Index = TIM5->CNT;
+  uint32_t  Timer4_CNT    = TIM4->CNT;                            
+  uint8_t   Lookup_Index  = TIM5->CNT;
 
   // This is why our lookup table has 65 values.
   float diff = Sin_LookupF[Lookup_Index + 1] - Sin_LookupF[Lookup_Index];
@@ -513,8 +513,8 @@ void Controller()  {
   float I_grid = ((float)I_grid_DMA) * I_GRID_SENSOR_K;
 
   // -------------- Iterate our PI Controller:
-  I_OUT_PID.setpoint = LO_Sample * P_OUT_PID.output;
-  I_OUT_PID.input = I_grid;
+  I_OUT_PID.setpoint  = LO_Sample * P_OUT_PID.output;
+  I_OUT_PID.input     = I_grid;
   PIDCompute(&I_OUT_PID);
 
   // -------------- Iterate our Resonant Controllers:
