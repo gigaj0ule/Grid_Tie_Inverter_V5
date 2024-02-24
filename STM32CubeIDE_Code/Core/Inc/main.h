@@ -57,34 +57,36 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define DFSDM_Clk_Pin GPIO_PIN_2
-#define DFSDM_Clk_GPIO_Port GPIOC
-#define LED_Pin GPIO_PIN_1
-#define LED_GPIO_Port GPIOA
-#define Driver_Disable_Pin GPIO_PIN_2
-#define Driver_Disable_GPIO_Port GPIOA
-#define DAC_Out_Pin GPIO_PIN_5
-#define DAC_Out_GPIO_Port GPIOA
-#define PWM_A_L_Pin GPIO_PIN_7
-#define PWM_A_L_GPIO_Port GPIOA
-#define PWM_B_L_Pin GPIO_PIN_0
-#define PWM_B_L_GPIO_Port GPIOB
-#define Vbus_DIN_Pin GPIO_PIN_1
-#define Vbus_DIN_GPIO_Port GPIOB
-#define Igrid_DIN_Pin GPIO_PIN_12
-#define Igrid_DIN_GPIO_Port GPIOB
-#define Vgrid_DIN_Pin GPIO_PIN_14
-#define Vgrid_DIN_GPIO_Port GPIOB
-#define Icap_DIN_Pin GPIO_PIN_7
-#define Icap_DIN_GPIO_Port GPIOC
-#define PWM_A_H_Pin GPIO_PIN_8
-#define PWM_A_H_GPIO_Port GPIOA
-#define PWM_B_H_Pin GPIO_PIN_9
-#define PWM_B_H_GPIO_Port GPIOA
-#define Relay_Pin GPIO_PIN_11
-#define Relay_GPIO_Port GPIOA
+
+#define DFSDM_Clk_Pin             GPIO_PIN_2
+#define DFSDM_Clk_GPIO_Port       GPIOC
+#define LED_Pin                   GPIO_PIN_1
+#define LED_GPIO_Port             GPIOA
+#define Driver_Disable_Pin        GPIO_PIN_2
+#define Driver_Disable_GPIO_Port  GPIOA
+#define DAC_Out_Pin               GPIO_PIN_5
+#define DAC_Out_GPIO_Port         GPIOA
+#define PWM_A_L_Pin               GPIO_PIN_7
+#define PWM_A_L_GPIO_Port         GPIOA
+#define PWM_B_L_Pin               GPIO_PIN_0
+#define PWM_B_L_GPIO_Port         GPIOB
+#define Vbus_DIN_Pin              GPIO_PIN_1
+#define Vbus_DIN_GPIO_Port        GPIOB
+#define Igrid_DIN_Pin             GPIO_PIN_12
+#define Igrid_DIN_GPIO_Port       GPIOB
+#define Vgrid_DIN_Pin             GPIO_PIN_14
+#define Vgrid_DIN_GPIO_Port       GPIOB
+#define Icap_DIN_Pin              GPIO_PIN_7
+#define Icap_DIN_GPIO_Port        GPIOC
+#define PWM_A_H_Pin               GPIO_PIN_8
+#define PWM_A_H_GPIO_Port         GPIOA
+#define PWM_B_H_Pin               GPIO_PIN_9
+#define PWM_B_H_GPIO_Port         GPIOA
+#define Relay_Pin                 GPIO_PIN_11
+#define Relay_GPIO_Port           GPIOA
 
 /* USER CODE BEGIN Private defines */
+
 #define    CONSTRAIN(x,lower,upper) ((x)<(lower)?(lower):((x)>(upper)?(upper):(x)))
 
 //##############################################
