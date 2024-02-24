@@ -175,9 +175,9 @@ int main(void)
   MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
 
-  // #######################################################################################
-  // -------------------------------Initializations-----------------------------------------
-  // #######################################################################################
+  // ##################################################
+  // ------- Initializations --------------------------
+  // ##################################################
 
   // Initialise DAC for Debugging, ensure the relays are closed 
   // and ensure our H-Bridge driver is disabled
@@ -394,7 +394,7 @@ int32_t Integrate_Mains_MS(int32_t grid_voltage_sample)  {
 
   static int32_t     Buffer[RMS_INTEGRAL_SIZE];
   static int8_t      Index = 0;
-  static int32_t    Sum = 0;
+  static int32_t     Sum = 0;
 
   int32_t Sample_sqrd = grid_voltage_sample * grid_voltage_sample;
 
@@ -541,6 +541,9 @@ void Controller()  {
   // -------------- Add together the various control outputs:
   float Demanded_Output_Voltage = Feedforward + I_OUT_PID.output + Ui_50 + Ui_150 + Ui_250 + Ui_350 + Ui_450 + Ui_550;
 
+  // ^^ In voltgage-source mode, we would simply force 
+  // Demanded_Output_Voltage to follow a lookup table
+
   // -------------- Update our voltage metric:
   float V_bus = ((float)V_bus_DMA) * V_BUS_SENSOR_K;
   int16_t Duty_Cycle = (int16_t)(Demanded_Output_Voltage * DUTY_MAX / V_bus);
@@ -577,16 +580,15 @@ void PLL()  {
   TIM4->ARR = SINE_STEP_PERIOD + (int32_t)PLL_PID.output;
 }
 
-// #########################################################################################
-// ----------------------------Interrupt Service Routines-----------------------------------
-// #########################################################################################
+// ##################################################
+// --- Interrupt Service Routines--------------------
+// ##################################################
 
 void HAL_DFSDM_FilterAwdCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_filter, uint32_t Channel, uint32_t Threshold)  {
   HB_Disable();
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-
 
   if (htim == &htim3) {
     // ## Runs at 13.3kHz to iterate the controller ##
