@@ -288,6 +288,7 @@ void SystemClock_Config(void)
   
   RCC_ClkInitStruct.ClockType       = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                                       |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+                                      
   RCC_ClkInitStruct.SYSCLKSource    = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider   = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider  = RCC_HCLK_DIV1;
@@ -332,15 +333,19 @@ void HB_Enable() {
 
   // Ensure we never proceed without ensuring our over current 
   // and voltage protection is enabled
-  if((hdfsdm1_filter0.Instance->FLTCR2 & DFSDM_FLTCR2_AWDIE) == 0)  {
+  if((hdfsdm1_filter0.Instance->FLTCR2 & DFSDM_FLTCR2_AWDIE) == 0) {
+
     Grid_Good_Bad_Cnt = GRID_UNACCEPTABLE;
-    HB_Enabled_Flag = false;
+    HB_Enabled_Flag   = false;
+
     return;
   }
 
-  if((hdfsdm1_filter1.Instance->FLTCR2 & DFSDM_FLTCR2_AWDIE) == 0)  {
+  if((hdfsdm1_filter1.Instance->FLTCR2 & DFSDM_FLTCR2_AWDIE) == 0) {
+
     Grid_Good_Bad_Cnt = GRID_UNACCEPTABLE;
-    HB_Enabled_Flag = false;
+    HB_Enabled_Flag   = false;
+
     return;
   }
 
@@ -365,15 +370,17 @@ float Integral(int32_t datum)  {
 
   // Keep a running summation of the last INTEGRAL_SIZE values 
   // passed into this function.
-  static int32_t     Buffer[INTEGRAL_SIZE];
+  static int32_t    Buffer[INTEGRAL_SIZE];
   static int16_t    Index = 0;
   static int32_t    Sum = 0;
 
-  Sum += datum;
+  Sum   += datum;
+
   Buffer[Index++] = datum;
 
-  if(Index == INTEGRAL_SIZE)
+  if(Index == INTEGRAL_SIZE) {
     Index = 0;
+  }
 
   Sum -= Buffer[Index];
   return((float)Sum);
@@ -390,11 +397,14 @@ int32_t Integrate_Mains_MS(int32_t grid_voltage_sample)  {
   static int32_t    Sum = 0;
 
   int32_t Sample_sqrd = grid_voltage_sample * grid_voltage_sample;
+
   Sum += Sample_sqrd;
+  
   Buffer[Index++] = Sample_sqrd;
 
-  if(Index == RMS_INTEGRAL_SIZE)
+  if(Index == RMS_INTEGRAL_SIZE) {
     Index = 0;
+  }
 
   Sum -= Buffer[Index];
 
@@ -463,12 +473,12 @@ void Grid_Checks()  {
   Grid_Good_Bad_Cnt++;
 
   // If all checks are nominal decay our error metric
-  Grid_Good_Bad_Cnt = CONSTRAIN(Grid_Good_Bad_Cnt, GRID_UNACCEPTABLE, GRID_ACCEPTABLE);
+  Grid_Good_Bad_Cnt   = CONSTRAIN(Grid_Good_Bad_Cnt, GRID_UNACCEPTABLE, GRID_ACCEPTABLE);
 
   // Here we adjust our output current to keep our bus voltage 
   // at 370V using a PI controller
-  P_OUT_PID.setpoint = 370.0f;
-  P_OUT_PID.input = V_bus;
+  P_OUT_PID.setpoint  = 370.0f;
+  P_OUT_PID.input     = V_bus;
   PIDCompute(&P_OUT_PID);
 }
 
@@ -481,11 +491,11 @@ void Controller()  {
     if(TIM5->CNT == 0)  {
 
       // TIM5-CNT is our PLL phase counter running from 0->63
-      I_OUT_PID.iTerm = 0;
-      P_OUT_PID.iTerm = 0;
-      P_OUT_PID.output = P_OUT_MIN;
+      I_OUT_PID.iTerm   = 0;
+      P_OUT_PID.iTerm   = 0;
+      P_OUT_PID.output  = P_OUT_MIN;
 
-      pr_init(&PR_50, 0.0f, 1000.0f, 10.0f, I_OUT_PERIOD);
+      pr_init(&PR_50,  0.0f, 1000.0f, 10.0f, I_OUT_PERIOD);
       pr_init(&PR_150, 0.0f, 1500.0f, 10.0f, I_OUT_PERIOD);
       pr_init(&PR_250, 0.0f, 1000.0f, 10.0f, I_OUT_PERIOD);
       pr_init(&PR_350, 0.0f, 1000.0f, 10.0f, I_OUT_PERIOD);
