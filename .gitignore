@@ -1,5 +1,6 @@
 History/
 __Previews/
+*.elf
 *.LOG
 *.elf
 *.o
